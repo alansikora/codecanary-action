@@ -31,7 +31,7 @@ jobs:
           git checkout -B canary origin/main
           sed -i 's|ARGS=()|ARGS=(--canary)|' action.yml
           git add action.yml
-          git commit -m "Use canary release channel"
+          git commit -m "patch: install canary CLI build"
           git push origin canary --force
 
       - name: Move canary tag
