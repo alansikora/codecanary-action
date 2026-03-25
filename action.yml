@@ -36,29 +36,12 @@ runs:
       env:
         CODECANARY_VERSION: ${{ inputs.codecanary_version }}
       run: |
-        set -euo pipefail
-        REPO="alansikora/codecanary"
-        if [ "$CODECANARY_VERSION" = "latest" ]; then
-          TAG=$(gh api "repos/$REPO/releases/latest" --jq '.tag_name' 2>/dev/null || echo "")
-          if [ -z "$TAG" ]; then
-            echo "::error::Could not determine latest CodeCanary release"
-            exit 1
-          fi
-        else
-          TAG="$CODECANARY_VERSION"
+        ARGS=()
+        if [ "$CODECANARY_VERSION" != "latest" ]; then
+          ARGS+=(--version "$CODECANARY_VERSION")
         fi
-        OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-        ARCH=$(uname -m)
-        case "$ARCH" in
-          x86_64) ARCH="amd64" ;;
-          aarch64|arm64) ARCH="arm64" ;;
-        esac
-        VERSION="${TAG#v}"
-        ARCHIVE="codecanary_${VERSION}_${OS}_${ARCH}.tar.gz"
-        URL="https://github.com/$REPO/releases/download/$TAG/$ARCHIVE"
-        echo "Installing CodeCanary $TAG ($OS/$ARCH)..."
-        curl -fsSL "$URL" | tar -xz -C /usr/local/bin codecanary
-        chmod +x /usr/local/bin/codecanary
+        curl -fsSL https://raw.githubusercontent.com/alansikora/codecanary/main/install.sh | sh -s -- "${ARGS[@]}"
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     - name: Install Claude Code
       shell: bash
