@@ -13,7 +13,6 @@ For setup instructions, configuration, and how CodeCanary works, see the [main r
 | `config_path` | Path to config file | `.codecanary.yml` |
 | `post_comment` | Post findings as PR comment | `true` |
 | `codecanary_version` | CLI version to install | `latest` |
-| `release_channel` | Release channel: `stable` or `canary` | `stable` |
 | `reply_only` | Only evaluate thread replies | `false` |
 
 ## Usage
@@ -23,6 +22,12 @@ For setup instructions, configuration, and how CodeCanary works, see the [main r
   with:
     claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
     reply_only: ${{ github.event_name == 'pull_request_review_comment' }}
+```
+
+To use the canary (development) release of the CLI instead:
+
+```yaml
+- uses: alansikora/codecanary-action@canary
 ```
 
 ## License

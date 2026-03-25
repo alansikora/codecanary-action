@@ -23,10 +23,6 @@ inputs:
     description: 'CodeCanary CLI version to install (e.g. "v0.1.0"). Defaults to latest release.'
     required: false
     default: 'latest'
-  release_channel:
-    description: 'Release channel to use: "stable" or "canary"'
-    required: false
-    default: 'stable'
   reply_only:
     description: 'Evaluate thread replies only, skip new findings'
     required: false
@@ -39,12 +35,9 @@ runs:
       shell: bash
       env:
         CODECANARY_VERSION: ${{ inputs.codecanary_version }}
-        CODECANARY_CHANNEL: ${{ inputs.release_channel }}
       run: |
         ARGS=()
-        if [ "$CODECANARY_CHANNEL" = "canary" ]; then
-          ARGS+=(--canary)
-        elif [ "$CODECANARY_VERSION" != "latest" ]; then
+        if [ "$CODECANARY_VERSION" != "latest" ]; then
           ARGS+=(--version "$CODECANARY_VERSION")
         fi
         curl -fsSL https://raw.githubusercontent.com/alansikora/codecanary/main/install.sh | sh -s -- "${ARGS[@]}"

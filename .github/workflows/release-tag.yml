@@ -1,4 +1,4 @@
-name: Update v1 tag
+name: Update release tags
 on:
   push:
     branches: [main]
@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  update-tag:
+  update-v1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,3 +15,26 @@ jobs:
         run: |
           git tag -f v1
           git push origin v1 --force
+
+  update-canary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync canary branch from main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B canary origin/main
+          sed -i 's|ARGS=()|ARGS=(--canary)|' action.yml
+          git add action.yml
+          git commit -m "Use canary release channel"
+          git push origin canary --force
+
+      - name: Move canary tag
+        run: |
+          git tag -f canary
+          git push origin canary --force
