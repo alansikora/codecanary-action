@@ -14,7 +14,7 @@ npx codecanary init
 
 ### 1. Install the CodeCanary Review app
 
-Install [CodeCanary Review](https://github.com/apps/codecanary-review) on your repository.
+Install [CodeCanary Review](https://github.com/apps/codecanary-bot) on your repository.
 
 ### 2. Add Claude authentication
 
@@ -26,7 +26,7 @@ Set one of these as a GitHub Actions secret:
 ### 3. Create the workflow
 
 ```yaml
-# .github/workflows/codecanary-review.yml
+# .github/workflows/codecanary-bot.yml
 name: CodeCanary Review
 
 on:
