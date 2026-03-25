@@ -32,9 +32,9 @@ jobs:
           sed -i 's|ARGS=()|ARGS=(--canary)|' action.yml
           git add action.yml
           git commit -m "Use canary release channel"
-          git push origin canary --force
+          git push origin HEAD:refs/heads/canary --force
 
       - name: Move canary tag
         run: |
           git tag -f canary
-          git push origin canary --force
+          git push origin refs/tags/canary --force
