@@ -13,6 +13,7 @@ For setup instructions, configuration, and how CodeCanary works, see the [main r
 | `config_path` | Path to config file | `.codecanary.yml` |
 | `post_comment` | Post findings as PR comment | `true` |
 | `codecanary_version` | CLI version to install | `latest` |
+| `release_channel` | Release channel: `stable` or `canary` | `stable` |
 | `reply_only` | Only evaluate thread replies | `false` |
 
 ## Usage
