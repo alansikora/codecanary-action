@@ -1,0 +1,17 @@
+name: Update v1 tag
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move v1 tag
+        run: |
+          git tag -f v1
+          git push origin v1 --force
