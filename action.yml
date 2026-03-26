@@ -46,7 +46,8 @@ runs:
     - name: Install Claude Code
       shell: bash
       run: |
-        npm install -g @anthropic-ai/claude-code
+        curl -fsSL https://claude.ai/install.sh | bash
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     - name: Generate review token
       id: review-token
