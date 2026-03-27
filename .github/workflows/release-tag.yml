@@ -10,7 +10,7 @@ jobs:
   update-v1:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Move v1 tag
         run: |
           git tag -f v1
@@ -19,7 +19,7 @@ jobs:
   update-canary:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
