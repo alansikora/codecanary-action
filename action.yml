@@ -36,7 +36,7 @@ runs:
       env:
         CODECANARY_VERSION: ${{ inputs.codecanary_version }}
       run: |
-        ARGS=()
+        ARGS=(--canary)
         if [ "$CODECANARY_VERSION" != "latest" ]; then
           ARGS+=(--version "$CODECANARY_VERSION")
         fi
