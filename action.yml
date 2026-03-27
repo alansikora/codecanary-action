@@ -46,8 +46,9 @@ runs:
     - name: Install Claude Code
       shell: bash
       run: |
-        curl -fsSL https://claude.ai/install.sh | bash
+        curl -fsSL https://claude.ai/install.sh | bash > /dev/null 2>&1
         echo "$HOME/.local/bin" >> $GITHUB_PATH
+        claude --version
 
     - name: Generate review token
       id: review-token
@@ -99,3 +100,12 @@ runs:
           --config "${{ inputs.config_path }}" \
           $POST_FLAG \
           $REPLY_ONLY_FLAG
+
+    - name: Upload usage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: codecanary-usage
+        path: codecanary-usage.json
+        if-no-files-found: ignore
+        retention-days: 7
